@@ -29,12 +29,14 @@ jobs:
         run: |
           rm -rf bin
           mkdir -p bin
-          javac -d bin -cp "lib/*" $(find src -name "*.java") $(find test -name "*.java")
+          javac -d bin -cp "lib/*" \
+            $(find src -name "*.java") \
+            $(find test -name "*.java")
 
       - name: Run JUnit tests
         run: |
           java -jar lib/junit-platform-console-standalone-6.0.3.jar \
             execute \
-            --classpath "bin:lib/*" \
+            --classpath bin \
+            --classpath lib \
             --scan-classpath
-

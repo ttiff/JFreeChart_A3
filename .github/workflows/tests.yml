@@ -31,8 +31,10 @@ jobs:
           mkdir -p bin
           javac -d bin -cp "lib/*" $(find src -name "*.java") $(find test -name "*.java")
 
-      - name: Run JUnit (RangeTestSuite)
+      - name: Run JUnit tests
         run: |
           java -jar lib/junit-platform-console-standalone-6.0.3.jar \
-            -cp "bin:lib/*" \
-            --select-class org.jfree.data.RangeTestSuite
+            execute \
+            --classpath "bin:lib/*" \
+            --scan-classpath
+

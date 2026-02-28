@@ -52,4 +52,36 @@ class shiftTest2 {
 		assertEquals(6.0, result.getUpperBound());
 	}
 
+	// New edge-case tests (shiftWithNoZeroCrossing via public shift)
+
+	@Test
+	void testShiftZeroRangePositiveDelta() {
+		// range at 0, delta > 0, allowZeroCrossing = false
+		exampleRange = new Range(0.0, 0.0);
+		Range result = Range.shift(exampleRange, 3.0, false);
+
+		assertEquals(3.0, result.getLowerBound(), 0.00001);
+		assertEquals(3.0, result.getUpperBound(), 0.00001);
+	}
+
+	@Test
+	void testShiftZeroRangeNegativeDelta() {
+		// range at 0, delta < 0, allowZeroCrossing = false
+		exampleRange = new Range(0.0, 0.0);
+		Range result = Range.shift(exampleRange, -2.0, false);
+
+		assertEquals(-2.0, result.getLowerBound(), 0.00001);
+		assertEquals(-2.0, result.getUpperBound(), 0.00001);
+	}
+
+	@Test
+	void testShiftPositiveRangeDeltaToZero() {
+		// positive range, delta makes lower bound exactly 0
+		exampleRange = new Range(5.0, 7.0);
+		Range result = Range.shift(exampleRange, -5.0, false);
+
+		assertEquals(0.0, result.getLowerBound(), 0.00001);
+		assertEquals(2.0, result.getUpperBound(), 0.00001);
+	}
+
 }

@@ -65,4 +65,29 @@ class intersectsTest {
 		
 	}
 
+	//New Test Cases
+	//lower==upper
+	@Test
+void testPointInsideRangeIntersects() {
+    range = new Range(10.0, 20.0);
+    assertTrue(range.intersects(15.0, 15.0));
+}
+
+
+//point outside range
+@Test
+void testPointOutsideRangeIntersects() {
+    range = new Range(10.0, 20.0);
+    assertFalse(range.intersects(25.0, 25.0));
+}
+
+//lower >upper
+@Test
+void testReversedInputBoundsIntersects() {
+    range = new Range(10.0, 20.0);
+    assertFalse(range.intersects(18.0, 12.0));
+}
+
+
+
 }

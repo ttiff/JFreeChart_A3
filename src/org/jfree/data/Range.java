@@ -322,7 +322,7 @@ public strictfp class Range implements Serializable {
 			return false;
 		}
 		if (!(this.upper == range.upper)) {
-			return true;
+			return false;
 		}
 		return true;
 	}

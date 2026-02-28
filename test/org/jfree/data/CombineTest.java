@@ -44,7 +44,6 @@ class CombineTest {
 	    Range r1 = new Range(2, 4);
 	    Range result = Range.combine(r1, null);
 
-	    // Known defect in JFreeChart: should return r1, but returns null
 	    assertNull(result);
 	}
 }

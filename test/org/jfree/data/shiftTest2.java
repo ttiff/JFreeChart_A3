@@ -84,4 +84,51 @@ class shiftTest2 {
 		assertEquals(2.0, result.getUpperBound(), 0.00001);
 	}
 
+	// New Additional Test cases
+	
+	@Test
+	void testShift_NoZeroCrossing_PositiveRange_PositiveDelta() {
+	    Range base = new Range(1.0, 3.0);
+	    Range result = Range.shift(base, 2.0, false);
+
+	    assertEquals(3.0, result.getLowerBound());
+	    assertEquals(5.0, result.getUpperBound());
+	}
+
+	@Test
+	void testShift_NoZeroCrossing_PositiveRange_NegativeDelta_CrossesZero() {
+	    Range base = new Range(1.0, 3.0);
+	    Range result = Range.shift(base, -5.0, false);
+
+	    assertEquals(0.0, result.getLowerBound());
+	    assertEquals(0.0, result.getUpperBound());
+	}
+
+	@Test
+	void testShift_NoZeroCrossing_NegativeRange_NegativeDelta() {
+	    Range base = new Range(-5.0, -2.0);
+	    Range result = Range.shift(base, -2.0, false);
+
+	    assertEquals(-7.0, result.getLowerBound());
+	    assertEquals(-4.0, result.getUpperBound());
+	}
+
+	@Test
+	void testShift_NoZeroCrossing_NegativeRange_PositiveDelta_CrossesZero() {
+	    Range base = new Range(-5.0, -2.0);
+	    Range result = Range.shift(base, 5.0, false);
+
+	    assertEquals(0.0, result.getLowerBound());
+	    assertEquals(0.0, result.getUpperBound());
+	}
+	
+	@Test
+	void testShiftZeroRangeZeroDelta() {
+	    exampleRange = new Range(0.0, 0.0);
+	    Range result = Range.shift(exampleRange, 0.0, false);
+
+	    assertEquals(0.0, result.getLowerBound(), 0.00001);
+	    assertEquals(0.0, result.getUpperBound(), 0.00001);
+	}
+
 }

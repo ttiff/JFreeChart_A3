@@ -142,5 +142,53 @@ class DataUtilitiesTest {
     }
 
 	//calculateRowTotal() Tests
+    @Test
+    void testCalculateRowTotal_TypicalValues() {
+        Values2D data = mock(Values2D.class);
+
+        when(data.getColumnCount()).thenReturn(3);
+        when(data.getValue(1, 0)).thenReturn(2.0);
+        when(data.getValue(1, 1)).thenReturn(3.5);
+        when(data.getValue(1, 2)).thenReturn(4.5);
+
+        double total = DataUtilities.calculateRowTotal(data, 1);
+
+        assertEquals(10.0, total, 0.0000001);
+        verify(data, times(1)).getColumnCount();
+        verify(data, times(3)).getValue(eq(1), anyInt());
+    }
+    
+    @Test
+    void testCalculateRowTotal_EmptyTableReturnsZero() {
+        Values2D data = mock(Values2D.class);
+
+        when(data.getColumnCount()).thenReturn(0);
+
+        double total = DataUtilities.calculateRowTotal(data, 0);
+
+        assertEquals(0.0, total, 0.0000001);
+        verify(data, times(1)).getColumnCount();
+        verify(data, never()).getValue(anyInt(), anyInt());
+    }
+    
+    @Test
+    void testCalculateRowTotal_NullDataThrows() {
+        assertThrows(NullPointerException.class,
+                () -> DataUtilities.calculateRowTotal(null, 0));
+    }
+    
+    @Test
+    void testCalculateRowTotal_NullValueInCellIsIgnored() {
+        Values2D data = mock(Values2D.class);
+
+        when(data.getColumnCount()).thenReturn(3);
+        when(data.getValue(0, 0)).thenReturn(1.0);
+        when(data.getValue(0, 1)).thenReturn(null);   
+        when(data.getValue(0, 2)).thenReturn(2.0);
+
+        double total = DataUtilities.calculateRowTotal(data, 0);
+
+        assertEquals(3.0, total, 0.0000001);
+    }
 
 }

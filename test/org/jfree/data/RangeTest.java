@@ -19,4 +19,10 @@ class RangeTest {
 		assertTrue(exception.getMessage().contains("require lower"));
 	}
 	
+	@Test
+    void testHashCode_IsExecuted() {
+      Range r = new Range(1.0, 2.0);
+      r.hashCode();
+    }
+	
 }
